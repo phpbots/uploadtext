@@ -11,8 +11,8 @@
 include "config.php";
 
 
-define('API_KEY',"توکن ربات");
-$admin = "آیدی عددی مدیر";
+define('API_KEY','227310059:AAE-_TDfkM-aKYu-MuW8Jyx2wZoWkhPH0sE');
+$admin = "322242763";
 
 $update = json_decode(file_get_contents('php://input'));
 $txt = $update->message->text;
@@ -75,18 +75,19 @@ if (preg_match('/^\/([Ss]tate)/', $txt) && $from == $admin) {
     ]);
 } else if (preg_match('/^\/([Uu]ploadtext)/', $txt)) {
     $tttext = str_replace("/uploadtext","",$txt);
+    $nt22 = utf8_encode($tttext);
     function rp($Number){
-        $Rand = substr(str_shuffle("0123456789"), 0, $Number);
+        $Rand = substr(str_shuffle("123456789"), 0, $Number);
         return $Rand;
     }
     $ids = rp(8);
 
 //        $mysqli->query("INSERT INTO uploadtext (id, text) VALUES ($id, '$tttext')");
 
-    $mysqli->query("INSERT INTO uploadtext (id, text) VALUES ($ids,'$tttext')");
+    $mysqli->query("INSERT INTO uploadtext (id, text) VALUES ($ids,'$nt22')");
     bridge("sendMessage",[
         'chat_id'=>$chat_id,
-        'text'=>"@ch_pm_bot ".$ids,
+        'text'=>"@UploadText_PHPBot $ids",
         'parse_mode'=>'HTML',
         'reply_markup'=>json_encode(['inline_keyboard'=>[
             [['text'=>'ارسال برای دیگران',"switch_inline_query"=>"$ids"]]
@@ -134,11 +135,11 @@ if (preg_match('/^\/([Ss]tate)/', $txt) && $from == $admin) {
 به ربات آپلود متن خوش اومدی 👉
 متن خودت رو بعد از دستور /uploadtext وارد کنید تا من اون رو آپلود کنم روی دیتابیس",
         'reply_markup' => json_encode(['inline_keyboard' => [
-            [['text' => '', 'url' => "https://t.me/joinchat/AAAAAD7GSGnI_QyAB3RtwQ"]]
+            [['text' => 'طراحی و ساخته شده توسط منچ', 'url' => "https://t.me/joinchat/AAAAAD7GSGnI_QyAB3RtwQ"]]
         ]])
     ]);
 } else {
-        apiRequest("sendMessage", [
+    apiRequest("sendMessage", [
         'chat_id' => $chat_id,
         'text' => "متاسفانه چیزی پیدا نکردم☹️",
         'reply_markup' => json_encode(['inline_keyboard' => [
@@ -158,6 +159,7 @@ while ($row = $res->fetch_assoc()){
     $idqq = $update->inline_query->id;
     $textqq = $update->inline_query->query;
 
+    $nt2 = utf8_decode($textq);
     if ($textqq == $idq) {
         bridge('answerInlineQuery', [
             'inline_query_id' => $update->inline_query->id,
@@ -165,7 +167,7 @@ while ($row = $res->fetch_assoc()){
                 'type' => 'article',
                 'id' => base64_encode(rand(5,555)),
                 'title' => 'دارای دکمه اشتراک',
-                'input_message_content' => ['parse_mode' => 'HTML', 'message_text' => "$textq"],
+                'input_message_content' => ['parse_mode' => 'HTML', 'message_text' => "$nt2"],
                 'reply_markup' => [
                     'inline_keyboard' => [
                         [
@@ -178,12 +180,12 @@ while ($row = $res->fetch_assoc()){
                 'type' => 'article',
                 'id' => base64_encode(rand(5,555)),
                 'title' => 'بدون دکمه اشتراک',
-                'input_message_content' => ['parse_mode' => 'HTML', 'message_text' => "$textq"],
+                'input_message_content' => ['parse_mode' => 'HTML', 'message_text' => "$nt2"],
             ],[
                 'type' => 'article',
                 'id' => base64_encode(rand(5,555)),
                 'title' => 'اشتراک کد',
-                'input_message_content' => ['parse_mode' => 'HTML', 'message_text' => "@ch_pm_bot $idq"],
+                'input_message_content' => ['parse_mode' => 'HTML', 'message_text' => "@UploadText_PHPBot $idq"],
                 'reply_markup' => [
                     'inline_keyboard' => [
                         [
@@ -198,11 +200,14 @@ while ($row = $res->fetch_assoc()){
             'inline_query_id' => $update->inline_query->id,
             'results' => json_encode([[
                 'type' => 'article',
+                'switch_pm_text'=>"شروع و ساخت",
                 'id' => base64_encode(rand(5,555)),
                 'title' => 'چیزی یافت نشد.',
                 'input_message_content' => ['parse_mode' => 'HTML', 'message_text' => "چیزی یافت نشد.
+                @UploadText_PHPBot
                 @CH_PM_BOT
-                @CH_PM"]
+                @CH_PM
+                @ch_jockdoni"]
             ]])
         ]);
     }
