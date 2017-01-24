@@ -11,8 +11,8 @@
 include "config.php";
 
 
-define('API_KEY','227310059:AAE-_TDfkM-aKYu-MuW8Jyx2wZoWkhPH0sE');
-$admin = "322242763";
+define('API_KEY','توکن ربات');
+$admin = "آیدی عددی ادمین";
 
 $update = json_decode(file_get_contents('php://input'));
 $txt = $update->message->text;
